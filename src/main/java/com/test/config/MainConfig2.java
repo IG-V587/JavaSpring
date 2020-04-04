@@ -3,6 +3,7 @@ package com.test.config;
 import com.test.entity.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -27,8 +28,14 @@ public class MainConfig2 {
      *  request: 同一次请求创建一个实例
      *  session:同一个session创建一个实例
      * @return
+     *
+     * @Lazy  懒加载   针对单实例情况
+     * 单实例bean 默认在容器启动时进行创建
+     *              懒加载，容器启动时不创建对象，第一次获取（使用）bean对象时进行创建，并初始化
+     *
      */
-    @Scope("singleton")
+//    @Scope("singleton")
+    @Lazy
     @Bean
     public Person person(){
         return new Person("张三",22);
