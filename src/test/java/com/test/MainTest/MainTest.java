@@ -1,6 +1,7 @@
 package com.test.MainTest;
 
 import com.test.config.MainConfig;
+import com.test.config.MainConfig2;
 import com.test.entity.Person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -50,4 +51,18 @@ public class MainTest {
     }
 
 
+    @Test
+    public void test04(){
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+        String[] definitionNames = applicationContext.getBeanDefinitionNames();
+        for(String name:definitionNames){
+            System.out.println(name);
+        }
+
+        // 默认为单实例
+        Person person= (Person) applicationContext.getBean("person");
+        Person person2= (Person) applicationContext.getBean("person");
+        System.out.println(person==person2);
+
+    }
 }
