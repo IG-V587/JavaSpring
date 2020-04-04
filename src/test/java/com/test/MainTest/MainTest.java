@@ -65,4 +65,13 @@ public class MainTest {
         System.out.println(person==person2);
 
     }
+
+    @Test
+    public void test05(){
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+        String[] definitionNames = applicationContext.getBeanDefinitionNames();
+        for(String name:definitionNames){
+            System.out.println(name);
+        }
+    }
 }

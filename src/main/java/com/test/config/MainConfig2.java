@@ -1,10 +1,9 @@
 package com.test.config;
 
+import com.test.condition.LinuxConditon;
+import com.test.condition.WindowsCondition;
 import com.test.entity.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 /**
  * className:MainConfig2
@@ -39,5 +38,24 @@ public class MainConfig2 {
     @Bean
     public Person person(){
         return new Person("张三",22);
+    }
+
+    /**
+     * @Conditional({Condition})    按照一定的条件进行判断，满足条件则给容器中注册bean
+     * condition 表达式 ，如果正确返回true 则表示 生成
+     *
+     * @return
+     */
+
+    @Conditional(WindowsCondition.class)
+    @Bean("bill")
+    public Person person01(){
+        return new Person("bill gates",66);
+    }
+
+    @Conditional(LinuxConditon.class)
+    @Bean("linus")
+    public Person person02(){
+        return new Person("linus",50);
     }
 }
