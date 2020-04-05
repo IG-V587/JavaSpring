@@ -22,8 +22,20 @@ import org.springframework.context.annotation.Configuration;
  *  4、BeanPostProcessor 【接口】: bean的后置处理器
  *      在bean初始化前后进行一些处理工作
  *      postProcessBeforeInitialization：在初始化之前工作
- *      postProcessAfterInitialization：在初始化之后都乖乖女座
+ *      postProcessAfterInitialization：在初始化之后的工作
+ *-----------------------------
+ * BeanPostProcessor 原理
+ * 遍历得到容器中所有的BeanPostProcessor;挨个执行beforeInitialization.
+ * 一旦返回null，跳出for循环，不会执行后面的BeanPostrocessor.postProcessBeforeInitialization
  *
+ * populateBean(beanName,mbd,instanceWrapper);  给bean进行属性赋值
+ * initializeBean
+ * {
+ *     applyBeanPostProcessorsBeforeInitialization(wrappedBean,beanName);
+ *     invokeInitMethods(beanName,wrappedBean,mbd); 执行初始化
+ *     applyBeanPostProcessorsAfterInitialization(wrappedBean,beanName);
+ *
+ * }
  *
  *
  * 构造（对象创建）
