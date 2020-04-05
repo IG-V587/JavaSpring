@@ -1,9 +1,6 @@
 package com.test.config;
 
-import com.test.condition.LinuxConditon;
-import com.test.condition.MyImportBeanDefinitionRegistrar;
-import com.test.condition.MyImportSelector;
-import com.test.condition.WindowsCondition;
+import com.test.condition.*;
 import com.test.entity.Person;
 import com.test.entity.Student;
 import org.springframework.context.annotation.*;
@@ -72,8 +69,15 @@ public class MainConfig2 {
      *      1、@Import (要导入到容器中的组件) 容器中就会自动注册这个组件,id默认为全类名
      *      2、ImportSelector  返回需要导入的组件的全类名数组
      *      3、ImportBeanDefinitionRegistrar 手动注册bean 到容器中
-     *
-     *
+     *  4、使用spring提供的factoryBean(工厂Bean)
+     *      1、默认获取到的是调用 getObject 方法创建的对象
+     *      2、要获取工厂Bean本身，则需要在id前面加上  & 符号
+     *          &studentFacoroyBean
      *
      */
+
+    @Bean
+    public StudentFacoroyBean studentFacoroyBean(){
+        return new StudentFacoroyBean();
+    }
 }

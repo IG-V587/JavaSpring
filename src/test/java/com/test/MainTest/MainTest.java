@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import sun.applet.Main;
 
 /**
  * className:MainTest
@@ -73,5 +72,13 @@ public class MainTest {
         for(String name:definitionNames){
             System.out.println(name);
         }
+        // 工厂bean 获取的是调用 getObject 创建对象
+        Object bean = applicationContext.getBean("studentFacoroyBean");
+        Object bean2 = applicationContext.getBean("studentFacoroyBean");
+        Object bean3 = applicationContext.getBean("&studentFacoroyBean");
+        System.out.println(bean);
+        System.out.println(bean==bean2);
+        System.out.println(bean3);
+
     }
 }
