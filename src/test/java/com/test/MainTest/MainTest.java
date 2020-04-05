@@ -2,6 +2,7 @@ package com.test.MainTest;
 
 import com.test.config.MainConfig;
 import com.test.config.MainConfig2;
+import com.test.config.MainConfigOfLifeCycle;
 import com.test.entity.Person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -79,6 +80,13 @@ public class MainTest {
         System.out.println(bean);
         System.out.println(bean==bean2);
         System.out.println(bean3);
+
+    }
+
+    @Test
+    public void test06(){
+        AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfLifeCycle.class);
+        applicationContext.close();
 
     }
 }
