@@ -3,11 +3,13 @@ package com.test.MainTest;
 import com.test.config.MainConfig;
 import com.test.config.MainConfig2;
 import com.test.config.MainConfigOfLifeCycle;
+import com.test.config.MainConfigOfProperty;
 import com.test.entity.Person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * className:MainTest
@@ -87,6 +89,21 @@ public class MainTest {
     public void test06(){
         AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfLifeCycle.class);
         applicationContext.close();
+
+    }
+
+    @Test
+    public void test07(){
+        AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfProperty.class);
+        String[] definitionNames = applicationContext.getBeanDefinitionNames();
+        for(String name:definitionNames){
+            System.out.println(name);
+        }
+        Person person=applicationContext.getBean(Person.class);
+        System.out.println(person);
+        ConfigurableEnvironment environment =applicationContext.getEnvironment();
+        String property = environment.getProperty("person.nickName");
+        System.out.println(property);
 
     }
 }
