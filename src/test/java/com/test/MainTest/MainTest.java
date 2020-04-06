@@ -1,9 +1,7 @@
 package com.test.MainTest;
 
 import com.test.config.*;
-import com.test.dao.BookDao;
 import com.test.entity.Person;
-import com.test.service.BookService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -109,13 +107,13 @@ public class MainTest {
     @Test
     public void test08(){
         AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
-        String[] definitionNames = applicationContext.getBeanDefinitionNames();
-        for(String name:definitionNames){
-            System.out.println(name);
-        }
-        BookService bean = applicationContext.getBean(BookService.class);
-        BookDao bean1 = applicationContext.getBean(BookDao.class);
-        System.out.println(bean);
-        System.out.println(bean1);
+//        String[] definitionNames = applicationContext.getBeanDefinitionNames();
+//        for(String name:definitionNames){
+//            System.out.println(name);
+//        }
+//        BookService bean = applicationContext.getBean(BookService.class);
+//        BookDao bean1 = applicationContext.getBean(BookDao.class);
+//        System.out.println(bean);
+//        System.out.println(bean1);
     }
 }
