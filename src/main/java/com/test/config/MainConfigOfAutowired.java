@@ -1,10 +1,8 @@
 package com.test.config;
 
 import com.test.dao.BookDao;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 /**
  *自动装配
@@ -25,7 +23,13 @@ import org.springframework.context.annotation.Primary;
  *          -- 但是实际测试 @Qualifier 使用还是会报错，而且同时使用时 @Primary 显示结果
  *          -- 此处存疑
  *
+ *2、Spring还支持使用@Resource(JSR250规范) 和@Inject(JSR330规范)  【Java规范的注解】
+ * @Resource:
+ *      可以和@Autowired 一样实现自动装配功能，默认是按照组件名称进行装配；
+ *      没有支持@Primary功能，没有支持@Autowired(required=false)
  *
+ * @Inject:
+ *      需要导入javax.inject 包，和@Autowired的功能一样，但是没有 required=false 功能
  *
  *
  *
@@ -36,8 +40,8 @@ import org.springframework.context.annotation.Primary;
 @ComponentScan({"com.test.dao","com.test.service","com.test.controller"})
 public class MainConfigOfAutowired {
 
-    @Primary    // 首选
-    @Bean("bookDao2")
+//    @Primary    // 首选
+//    @Bean("bookDao2")
     public BookDao bookDao(){
         BookDao bookDao = new BookDao();
         bookDao.setTag("2");
