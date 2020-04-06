@@ -1,12 +1,16 @@
 package com.test.MainTest;
 
 import com.test.config.*;
+import com.test.dao.BookDao;
 import com.test.entity.Person;
+import com.test.service.BookService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+
+import javax.sql.DataSource;
 
 /**
  * className:MainTest
@@ -107,13 +111,34 @@ public class MainTest {
     @Test
     public void test08(){
         AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
-//        String[] definitionNames = applicationContext.getBeanDefinitionNames();
-//        for(String name:definitionNames){
-//            System.out.println(name);
-//        }
-//        BookService bean = applicationContext.getBean(BookService.class);
-//        BookDao bean1 = applicationContext.getBean(BookDao.class);
-//        System.out.println(bean);
-//        System.out.println(bean1);
+        String[] definitionNames = applicationContext.getBeanDefinitionNames();
+        for(String name:definitionNames){
+            System.out.println(name);
+        }
+        BookService bean = applicationContext.getBean(BookService.class);
+        BookDao bean1 = applicationContext.getBean(BookDao.class);
+        System.out.println(bean);
+        System.out.println(bean1);
+    }
+
+    @Test
+    public void test09(){
+        // 1. 使用命令行动态参数，在虚拟机参数位置加载  -Dspring.profiles.active=test           指定某个环境生效
+        // 2. 代码激活某个环境
+
+//        AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfProfile.class);
+        // 1、创建一个applicationContext
+        AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext();
+        // 2、设置需要激活的环境
+        applicationContext.getEnvironment().setActiveProfiles("test","dev");
+        // 3、注册主配置类
+        applicationContext.register(MainConfigOfProfile.class);
+        // 4、启动刷新容器
+        applicationContext.refresh();
+        String[] namesForType = applicationContext.getBeanNamesForType(DataSource.class);
+        for(String name:namesForType){
+            System.out.println(name);
+        }
+
     }
 }
